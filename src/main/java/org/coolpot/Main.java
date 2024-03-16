@@ -3,7 +3,6 @@ package org.coolpot;
 import joptsimple.*;
 import org.coolpot.util.MetaConfig;
 
-import java.io.IOException;
 import java.util.*;
 
 public class Main {

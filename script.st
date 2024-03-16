@@ -1,3 +1,7 @@
 import std;
 
-println("Hello! \0 World!");
+/*
+    你好! 世界!
+*/
+
+// aaaa

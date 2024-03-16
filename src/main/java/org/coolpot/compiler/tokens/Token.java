@@ -51,6 +51,14 @@ public class Token {
         return "{"+type.name()+":"+data+"}";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Token){
+            return ((Token) obj).data.equals(this.data) && ((Token) obj).file.equals(this.file) && ((Token) obj).type.equals(this.type);
+        }
+        return false;
+    }
+
     public enum Type{
         KEY, // 关键字
         SEM, // 符号
@@ -65,6 +73,7 @@ public class Token {
         TXT, // 注释(忽略)
         LINE,// 换行符
         END, // 终止符
+        LITX,// 行注释
     }
 
 }

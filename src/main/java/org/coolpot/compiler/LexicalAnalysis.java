@@ -100,6 +100,50 @@ public final class LexicalAnalysis {
             buffer = c;
             if (MetaConfig.isKey(sb.toString())) return new Token(Token.Type.KEY, sb.toString(), line,file);
             return new Token(Token.Type.NAM, sb.toString(), line,file);
+        }else if (c == '/') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '*') {
+                do {
+                    do {
+                        c = getChar();
+                        sb.append((char) c);
+                    } while (c != '*');
+                    c = getChar();
+                    sb.append((char) c);
+                } while (c != '/');
+                sb.deleteCharAt(0).deleteCharAt(sb.length() - 1).deleteCharAt(sb.length() - 1);
+                return new Token(Token.Type.TXT, sb.toString(), line,file);
+            } else if (c == '=') {
+                return new Token(Token.Type.SEM, "/=", line,file);
+            }else if(c == '/') {
+                return new Token(Token.Type.LITX,"",line,file);
+            } else return new Token(Token.Type.SEM, "/", line,file);
+        } else if (c == '*') {
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            } else if (isNum(c)) {
+                sb.append((char) c);
+                return new Token(Token.Type.NUM, sb.toString(), line,file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, "*", line,file);
+        }else if(c == '&'){
+            c = getChar();
+            if (c == '&') {
+                return new Token(Token.Type.SEM, "&&", line,file);
+            }
+            buffer = (char) c;
+            return new Token(Token.Type.SEM, "&", line,file);
+        }else if(c == '|'){
+            c = getChar();
+            if (c == '|') {
+                return new Token(Token.Type.SEM, "||", line,file);
+            }
+            buffer = (char) c;
+            return new Token(Token.Type.SEM, "|", line,file);
         }else if (c == '"') {
             do {
                 c = getChar();

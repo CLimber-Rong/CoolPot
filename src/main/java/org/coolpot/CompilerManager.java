@@ -17,13 +17,6 @@ public class CompilerManager {
     }
 
     public static void createCompilerTask(SourceFile file){
-        try {
-            LexicalAnalysis lexical = new LexicalAnalysis(file);
-            Collection<Token> tokens = lexical.getTokens();
-
-            System.out.println(tokens);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        file.compilerFile();
     }
 }
