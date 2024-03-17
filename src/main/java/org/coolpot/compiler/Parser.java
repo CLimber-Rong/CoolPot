@@ -59,7 +59,6 @@ public class Parser {
                 parser.eval(table);
             }
         }catch (NullPointerException e){
-            e.printStackTrace();
         }
 
         System.out.println(table);

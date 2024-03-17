@@ -20,6 +20,11 @@ public class UnknownToken extends Token{
     }
 
     @Override
+    public Type getType() {
+        return Type.UKN;
+    }
+
+    @Override
     public int getLine() {
         return line;
     }

@@ -1,5 +1,6 @@
 package org.coolpot.compiler.parser;
 
+import org.coolpot.CompilerManager;
 import org.coolpot.compiler.Parser;
 import org.coolpot.compiler.SourceFile;
 import org.coolpot.compiler.SymbolTable;
@@ -26,9 +27,12 @@ public class ImportParser implements SubParser{
         Token token = parser.getToken();
 
         if(token.getType().equals(Token.Type.NAM)){
-            table.getLibrary().add(token.getData());
+            for(SourceFile file : CompilerManager.compiling_files)
+                if(file.getFileName().split("\\.")[0].equals(token.getData())){
+                    table.getLibrary().add(token.getData());
+                    return STIR.nol_ir;
+                }
+            throw new SyntaxException(token,"Cannot found import library.");
         }else throw new SyntaxException(token,"Type name is not valid.");
-
-        return STIR.nol_ir;
     }
 }

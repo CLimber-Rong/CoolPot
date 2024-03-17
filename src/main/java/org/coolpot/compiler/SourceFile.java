@@ -14,7 +14,7 @@ public class SourceFile {
 
     public SourceFile(File file){
         this.file = file;
-        this.tables = new SymbolTable();
+        this.tables = new SymbolTable(this);
         this.lexical = new LexicalAnalysis(this);
         this.parser = new Parser(this);
     }

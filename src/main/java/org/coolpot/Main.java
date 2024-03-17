@@ -3,6 +3,7 @@ package org.coolpot;
 import joptsimple.*;
 import org.coolpot.util.MetaConfig;
 
+import java.io.File;
 import java.util.*;
 
 public class Main {
@@ -13,6 +14,10 @@ public class Main {
         parser.acceptsAll(asList("out","o"),"Set output file name").withRequiredArg()
                 .ofType(String.class)
                 .describedAs("filename");
+        parser.acceptsAll(asList("lib","library","l"),"Set native library path.").withRequiredArg()
+                .ofType(File.class)
+                .defaultsTo(new File("lib"))
+                .describedAs("dir_name");
 
         OptionSet set = parser.parse(args);
 
@@ -34,7 +39,7 @@ public class Main {
             }
         }
 
-        CompilerManager.compilers(files);
+        CompilerManager.compilers(set,files);
     }
 
     private static void printHelperInfo(Collection<OptionSpec<?>> collection){

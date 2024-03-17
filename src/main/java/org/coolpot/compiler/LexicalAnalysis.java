@@ -1,11 +1,13 @@
 package org.coolpot.compiler;
 
 import org.coolpot.compiler.tokens.Token;
+import org.coolpot.compiler.tokens.UTF8Token;
 import org.coolpot.compiler.tokens.UnknownToken;
 import org.coolpot.util.MetaConfig;
 import org.coolpot.util.Util;
 import org.coolpot.util.error.SyntaxException;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -100,6 +102,48 @@ public final class LexicalAnalysis {
             buffer = c;
             if (MetaConfig.isKey(sb.toString())) return new Token(Token.Type.KEY, sb.toString(), line,file);
             return new Token(Token.Type.NAM, sb.toString(), line,file);
+        }else if (c == '=') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '=' || c == '!') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, sb.toString(), line,file);
+        } else if (c == '>' || c == '<') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, sb.toString(), line,file);
+        } else if (c == '+') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            }else if(c == '+'){
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, sb.toString(), line, file);
+        } else if (c == '-') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            }else if(c == '-'){
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line,file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, sb.toString(), line,file);
         }else if (c == '/') {
             sb.append((char) c);
             c = getChar();
@@ -175,10 +219,13 @@ public final class LexicalAnalysis {
             return new Token(Token.Type.LR, sb.toString(), line,file);
         }else if (c == ';') return new Token(Token.Type.END, ";", line,file);
         else if (c == '\n') {
-            line += 1;
-            return new Token(Token.Type.LINE, "", line,file);
+            line ++;
+            return new Token(Token.Type.LINE, "", line, file);
+        }else if(UTF8Token.isUTF8(c) || UTF8Token.isChinese(c) || UTF8Token.isChineseByScript(c)){
+            sb.append(c);
+            return new UTF8Token(sb.toString(),line,file);
         }else {
-            throw new SyntaxException(new UnknownToken(c,file.file.getName(),line),"Unknown character in source file.");
+            return new UnknownToken(c,file.file.getName(),line);
         }
     }
 

@@ -21,6 +21,7 @@ public final class MetaConfig {
             add("if");
             add("while");
             add("else");
+            add("sfn");
         }
     };
 

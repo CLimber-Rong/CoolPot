@@ -74,6 +74,8 @@ public class Token {
         LINE,// 换行符
         END, // 终止符
         LITX,// 行注释
+        UTF8,// utf-8 字符
+        UKN, // 未知字符
     }
 
 }
