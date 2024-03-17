@@ -32,6 +32,7 @@ public class CompilerManager {
         }
         for(File file : Objects.requireNonNull(dir.listFiles())){
             SourceFile sourceFile = new SourceFile(file);
+            sourceFile.setSFN(true);
             compiling_files.add(sourceFile);
         }
     }

@@ -1,9 +1,7 @@
 package org.coolpot.compiler;
 
-import org.coolpot.compiler.parser.DefParser;
-import org.coolpot.compiler.parser.ImportParser;
-import org.coolpot.compiler.parser.NullParser;
-import org.coolpot.compiler.parser.SubParser;
+import org.coolpot.compiler.ir.STIR;
+import org.coolpot.compiler.parser.*;
 import org.coolpot.compiler.tokens.Token;
 
 import java.util.LinkedList;
@@ -23,6 +21,8 @@ public class Parser {
 
         this.parsers.add(new ImportParser(file,this));
         this.parsers.add(new DefParser(file,this));
+        this.parsers.add(new SfnParser(file,this));
+        this.parsers.add(new SugarClassParser(file,this));
     }
 
     public Token getToken(){
@@ -56,7 +56,8 @@ public class Parser {
         SubParser parser;
         try {
             while (!((parser = parserStatement()) instanceof NullParser)) {
-                parser.eval(table);
+                STIR ir = parser.eval(table);
+                file.irs.add(ir);
             }
         }catch (NullPointerException e){
         }

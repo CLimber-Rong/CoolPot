@@ -1,5 +1,7 @@
 package org.coolpot.compiler;
 
+import org.coolpot.compiler.consts.ConstTable;
+import org.coolpot.compiler.ir.STIR;
 import org.coolpot.compiler.tokens.Token;
 
 import java.io.File;
@@ -8,15 +10,22 @@ import java.util.*;
 public class SourceFile {
     File file;
     List<Token> tokens;
+    List<STIR> irs;
+    List<String> line_data;
+    ConstTable constTable;
     SymbolTable tables;
     LexicalAnalysis lexical;
     Parser parser;
+    boolean isSFN;
 
     public SourceFile(File file){
         this.file = file;
+        this.line_data = new ArrayList<>();
         this.tables = new SymbolTable(this);
         this.lexical = new LexicalAnalysis(this);
+        this.irs = new ArrayList<>();
         this.parser = new Parser(this);
+        this.constTable = new ConstTable(this);
     }
 
     public void compilerFile(){
@@ -28,12 +37,24 @@ public class SourceFile {
         }
     }
 
+    public void setSFN(boolean SFN) {
+        isSFN = SFN;
+    }
+
+    public boolean isSFN() {
+        return isSFN;
+    }
+
     public String getFileName() {
         return file.getName();
     }
 
     public List<Token> getTokens() {
         return tokens;
+    }
+
+    public List<String> getLineData() {
+        return line_data;
     }
 
     private List<Token> removeText(Collection<Token> tokens){

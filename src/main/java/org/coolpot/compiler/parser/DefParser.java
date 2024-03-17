@@ -26,12 +26,20 @@ public class DefParser implements SubParser {
 
     @Override
     public STIR eval(SymbolTable table) {
-        Token name = parser.getToken();
-        if(name.getType().equals(Token.Type.NAM)){
-            if(!table.getThisScope().getInDefine().contains(name.getData())){
-                table.getThisScope().getInDefine().add(name.getData());
+        Token token = parser.getToken();
+        if(token.getType().equals(Token.Type.NAM)){
+            if(!table.getThisScope().getInDefine().contains(token.getData())){
+                table.getThisScope().getInDefine().add(token.getData());
+                token = parser.getToken();
+                if(token.getType().equals(Token.Type.SEM)&&token.getData().equals("=")) {
+
+                }else if(token.getType().equals(Token.Type.END)){
+                    return new Member_IR();
+                }else{
+                    throw new SyntaxException(token,"'=' expected.");
+                }
                 return new Member_IR();
-            }else throw new SyntaxException(name,"Type is already defined.");
-        }else throw new SyntaxException(name,"should be: <identifier>");
+            }else throw new SyntaxException(token,"Type is already defined.");
+        }else throw new SyntaxException(token,"should be: <identifier>");
     }
 }

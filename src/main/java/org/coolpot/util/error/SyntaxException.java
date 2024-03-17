@@ -27,6 +27,7 @@ public class SyntaxException extends CompilerException{
             s.println("    "+token);
         else {
             s.println("    at ("+token.getSourceFile().getFileName()+") lines:"+token.getLine()+" | token:"+token.getData());
+            s.println("    at ( "+token.getSourceFile().getLineData().get(token.getLine()-1)+" )");
         }
     }
 }
