@@ -1,6 +1,8 @@
 package org.coolpot.compiler.consts.objects;
 
-public class ConstInteger extends ConstObject{
+import org.coolpot.compiler.consts.ConstTable;
+
+public class ConstInteger extends ConstObject<Integer>{
 
     int data;
     int index;
@@ -13,5 +15,15 @@ public class ConstInteger extends ConstObject{
     @Override
     public int getIndex() {
         return 0;
+    }
+
+    @Override
+    public Integer getData() {
+        return data;
+    }
+
+    @Override
+    public byte getType() {
+        return ConstTable.INT;
     }
 }

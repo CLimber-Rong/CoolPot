@@ -2,28 +2,27 @@ package org.coolpot.compiler.consts.objects;
 
 import org.coolpot.compiler.consts.ConstTable;
 
-public class ConstString extends ConstObject<String>{
-
-    String data;
+public class ConstDouble extends ConstObject<Double>{
     int index;
+    double data;
 
-    public ConstString(String data,int index){
-        this.data = data;
+    public ConstDouble(int index,double data){
         this.index = index;
+        this.data = data;
     }
 
     @Override
     public int getIndex() {
-        return index;
+        return 0;
     }
 
     @Override
-    public String getData() {
+    public Double getData() {
         return data;
     }
 
     @Override
     public byte getType() {
-        return ConstTable.STRING;
+        return ConstTable.DOUBLE;
     }
 }
