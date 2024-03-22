@@ -1,7 +1,8 @@
 package org.coolpot.compiler;
 
-import org.coolpot.compiler.consts.ConstTable;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.bytecode.consts.ConstTable;
+import org.coolpot.bytecode.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.tokens.Token;
 
 import java.io.File;
@@ -10,9 +11,8 @@ import java.util.*;
 public class SourceFile {
     File file;
     List<Token> tokens;
-    List<STIR> irs;
+    List<ASTNode> nodes;
     List<String> line_data;
-    ConstTable constTable;
     SymbolTable tables;
     LexicalAnalysis lexical;
     Parser parser;
@@ -23,9 +23,8 @@ public class SourceFile {
         this.line_data = new ArrayList<>();
         this.tables = new SymbolTable(this);
         this.lexical = new LexicalAnalysis(this);
-        this.irs = new ArrayList<>();
+        this.nodes = new ArrayList<>();
         this.parser = new Parser(this);
-        this.constTable = new ConstTable(this);
     }
 
     public void compilerFile(){

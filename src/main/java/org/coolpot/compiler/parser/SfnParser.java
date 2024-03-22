@@ -3,9 +3,12 @@ package org.coolpot.compiler.parser;
 import org.coolpot.compiler.Parser;
 import org.coolpot.compiler.SourceFile;
 import org.coolpot.compiler.SymbolTable;
-import org.coolpot.compiler.ir.SFN_IR;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
+import org.coolpot.compiler.node.GroupNode;
+import org.coolpot.compiler.node.irnode.PushNode;
+import org.coolpot.compiler.node.irnode.SfnNode;
 import org.coolpot.compiler.tokens.Token;
+import org.coolpot.util.MetaConfig;
 import org.coolpot.util.error.SyntaxException;
 
 public class SfnParser implements SubParser{
@@ -26,27 +29,30 @@ public class SfnParser implements SubParser{
     }
 
     @Override
-    public STIR eval(SymbolTable table) {
-        if(!file.isSFN())
-            System.out.println("[Warn]: It is not recommended to call SFN commands directly in user scripts");
+    public ASTNode eval(SymbolTable table) {
         Token token = parser.getToken();
+        if(!file.isSFN()) {
+            if(MetaConfig.disableSFN){
+                throw new SyntaxException(token,"Cannot use sfn command in user script.");
+            }else System.out.println("[Warn]: It is not recommended to call SFN commands directly in user scripts");
+        }
         if(token.getType().equals(Token.Type.NUM)){
-            int port = Integer.valueOf(token.getData());
+            Token port = token;
             token = parser.getToken();
             if(!(token.getType().equals(Token.Type.SEM) && token.getData().equals(",")))
                 throw new SyntaxException(token,"',' expected.");
             token = parser.getToken();
             if(token.getType().equals(Token.Type.NAM)){
                 if(table.getThisScope().getInDefine().contains(token.getData())){
-                    return new SFN_IR(port);
+                    return new GroupNode(new PushNode(token),
+                            new PushNode(port),
+                            new SfnNode());
                 }else throw new SyntaxException(token,"Unable to resolve symbols.");
             }else throw new SyntaxException(token,"Type name is not valid.");
         }else if(token.getType().equals(Token.Type.NAM)) {
             if(table.getThisScope().getInDefine().contains(token.getData())) {
 
-                //TODO 端口变量提取指令未定义
-
-                return new SFN_IR(0x00);
+                return new GroupNode();
             }else throw new SyntaxException(token,"Unable to resolve symbols.");
         }else throw new SyntaxException(token,"Type name is not valid.");
     }

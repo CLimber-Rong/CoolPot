@@ -40,7 +40,7 @@ public class SymbolTable {
         return "SymbolTable: ("+file.getFileName()+"){\n" +
                 "    Librarys: "+library.toString()+"\n" +
                 "    Scope: "+scope.toString()+"\n" +
-                "    IR: "+file.irs.toString()+"\n" +
+                "    Nodes: "+file.nodes.toString()+"\n" +
                 "}";
     }
 

@@ -1,6 +1,7 @@
 package org.coolpot.compiler;
 
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.bytecode.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.parser.*;
 import org.coolpot.compiler.tokens.Token;
 
@@ -57,8 +58,8 @@ public class Parser {
         SubParser parser;
         try {
             while (!((parser = parserStatement()) instanceof NullParser)) {
-                STIR ir = parser.eval(table);
-                file.irs.add(ir);
+                ASTNode ir = parser.eval(table);
+                file.nodes.add(ir);
             }
         }catch (NullPointerException e){
         }

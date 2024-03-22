@@ -1,6 +1,6 @@
-package org.coolpot.compiler.consts.objects;
+package org.coolpot.bytecode.consts.objects;
 
-import org.coolpot.compiler.consts.ConstTable;
+import org.coolpot.bytecode.consts.ConstTable;
 
 public class ConstInteger extends ConstObject<Integer>{
 

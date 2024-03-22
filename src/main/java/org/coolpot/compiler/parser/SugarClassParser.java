@@ -3,7 +3,8 @@ package org.coolpot.compiler.parser;
 import org.coolpot.compiler.Parser;
 import org.coolpot.compiler.SourceFile;
 import org.coolpot.compiler.SymbolTable;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.bytecode.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.tokens.Token;
 
 public class SugarClassParser implements SubParser{
@@ -21,7 +22,7 @@ public class SugarClassParser implements SubParser{
     }
 
     @Override
-    public STIR eval(SymbolTable table) {
+    public ASTNode eval(SymbolTable table) {
         return null;
     }
 }

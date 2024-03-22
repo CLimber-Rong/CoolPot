@@ -1,10 +1,10 @@
-package org.coolpot.compiler.consts;
+package org.coolpot.bytecode.consts;
 
-import org.coolpot.compiler.SourceFile;
-import org.coolpot.compiler.consts.objects.ConstDouble;
-import org.coolpot.compiler.consts.objects.ConstInteger;
-import org.coolpot.compiler.consts.objects.ConstObject;
-import org.coolpot.compiler.consts.objects.ConstString;
+import org.coolpot.bytecode.ByteCodeFile;
+import org.coolpot.bytecode.consts.objects.ConstInteger;
+import org.coolpot.bytecode.consts.objects.ConstDouble;
+import org.coolpot.bytecode.consts.objects.ConstObject;
+import org.coolpot.bytecode.consts.objects.ConstString;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,11 +14,11 @@ import java.util.Map;
 
 public class ConstTable {
 
-    SourceFile file;
+    ByteCodeFile file;
     Map<Integer, ConstObject<?>> const_objects;
     int index;
 
-    public ConstTable(SourceFile file){
+    public ConstTable(ByteCodeFile file){
         this.file = file;
         this.const_objects = new HashMap<>();
     }

@@ -4,7 +4,7 @@ import org.coolpot.CompilerManager;
 import org.coolpot.compiler.Parser;
 import org.coolpot.compiler.SourceFile;
 import org.coolpot.compiler.SymbolTable;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.util.error.SyntaxException;
 
@@ -23,14 +23,14 @@ public class ImportParser implements SubParser{
     }
 
     @Override
-    public STIR eval(SymbolTable table) {
+    public ASTNode eval(SymbolTable table) {
         Token token = parser.getToken();
 
         if(token.getType().equals(Token.Type.NAM)){
             for(SourceFile file : CompilerManager.compiling_files)
                 if(file.getFileName().split("\\.")[0].equals(token.getData())){
                     table.getLibrary().add(token.getData());
-                    return STIR.nol_ir;
+                    return ASTNode.empty;
                 }
             throw new SyntaxException(token,"Cannot found import library.");
         }else throw new SyntaxException(token,"Type name is not valid.");

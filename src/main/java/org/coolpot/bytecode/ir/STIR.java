@@ -1,4 +1,7 @@
-package org.coolpot.compiler.ir;
+package org.coolpot.bytecode.ir;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 public abstract class STIR {
     public static final STIR nol_ir = new NolIR();
@@ -25,20 +28,20 @@ public abstract class STIR {
     LAND = 0X14,// &&
     LOR = 0X15, // ||
     ASSIGN = 0X16, //XXX: Unknown IR
-    MEMBER = 0X17, //XXX: Unknown IR
+    MEMBER = 0X17,
     DEF = 0x18,
     FUNC = 0x19, END = 0x1A,
     IF = 0x1B,
     GOTO = 0X1C,
-    PARAM = 0X1D,
+    PUSH = 0X1D,
     CALL = 0x1E,
-    CLASS = 0x1F;
-
-    //FIXME: Undefine SFN bytecode command.
+    CLASS = 0x1F,
+    SFN = 0x20;
 
 
 
     public abstract byte getOpcode();
+    public abstract void dump(DataOutputStream out) throws IOException;
 
     @Override
     public String toString(){

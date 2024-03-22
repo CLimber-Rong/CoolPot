@@ -1,6 +1,6 @@
-package org.coolpot.compiler.consts.objects;
+package org.coolpot.bytecode.consts.objects;
 
-import org.coolpot.compiler.consts.ConstTable;
+import org.coolpot.bytecode.consts.ConstTable;
 
 public class ConstDouble extends ConstObject<Double>{
     int index;
@@ -13,7 +13,7 @@ public class ConstDouble extends ConstObject<Double>{
 
     @Override
     public int getIndex() {
-        return 0;
+        return index;
     }
 
     @Override

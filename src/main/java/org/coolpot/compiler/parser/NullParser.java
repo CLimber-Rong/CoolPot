@@ -1,7 +1,7 @@
 package org.coolpot.compiler.parser;
 
 import org.coolpot.compiler.SymbolTable;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.tokens.Token;
 
 public class NullParser implements SubParser{
@@ -12,7 +12,7 @@ public class NullParser implements SubParser{
     }
 
     @Override
-    public STIR eval(SymbolTable table) {
-        return STIR.nol_ir;
+    public ASTNode eval(SymbolTable table) {
+        return ASTNode.empty;
     }
 }

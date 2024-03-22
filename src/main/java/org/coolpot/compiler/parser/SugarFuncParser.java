@@ -3,7 +3,7 @@ package org.coolpot.compiler.parser;
 import org.coolpot.compiler.Parser;
 import org.coolpot.compiler.SourceFile;
 import org.coolpot.compiler.SymbolTable;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.util.error.SyntaxException;
 
@@ -23,7 +23,7 @@ public class SugarFuncParser implements SubParser {
     }
 
     @Override
-    public STIR eval(SymbolTable table) {
+    public ASTNode eval(SymbolTable table) {
         Token token = parser.getToken();
         if(token.getType().equals(Token.Type.NAM)){
             if(!table.getThisScope().getInDefine().contains(token.getData())){

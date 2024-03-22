@@ -12,6 +12,9 @@ public final class MetaConfig {
     public static final String version_info = Util.dynamic(name+" (OpenJDK, Build by plants-os) "+version
     +".\nCopyright 2024 by XIAOYI12, CLimber-Rong.");
 
+    public static boolean disableSFN = false;
+    public static byte[] bc_version = {0,0,1};
+
     private static final Set<String> keys = new HashSet<>(){
         {
             add("import");

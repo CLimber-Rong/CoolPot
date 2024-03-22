@@ -3,8 +3,8 @@ package org.coolpot.compiler.parser;
 import org.coolpot.compiler.Parser;
 import org.coolpot.compiler.SourceFile;
 import org.coolpot.compiler.SymbolTable;
-import org.coolpot.compiler.ir.MemberIR;
-import org.coolpot.compiler.ir.STIR;
+import org.coolpot.compiler.node.ASTNode;
+import org.coolpot.compiler.node.irnode.MemberNode;
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.util.error.SyntaxException;
 
@@ -25,7 +25,7 @@ public class DefParser implements SubParser {
     }
 
     @Override
-    public STIR eval(SymbolTable table) {
+    public ASTNode eval(SymbolTable table) {
         Token token = parser.getToken();
         if(token.getType().equals(Token.Type.NAM)){
             if(!table.getThisScope().getInDefine().contains(token.getData())){
@@ -34,11 +34,11 @@ public class DefParser implements SubParser {
                 if(token.getType().equals(Token.Type.SEM)&&token.getData().equals("=")) {
 
                 }else if(token.getType().equals(Token.Type.END)){
-                    return new MemberIR();
+
                 }else{
                     throw new SyntaxException(token,"'=' expected.");
                 }
-                return new MemberIR();
+                return new MemberNode(null);
             }else throw new SyntaxException(token,"Type is already defined.");
         }else throw new SyntaxException(token,"<identifier> expected.");
     }
