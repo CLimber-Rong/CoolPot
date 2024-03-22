@@ -15,7 +15,7 @@ import java.util.Map;
 public class ConstTable {
 
     SourceFile file;
-    Map<Integer, ConstObject> const_objects;
+    Map<Integer, ConstObject<?>> const_objects;
     int index;
 
     public ConstTable(SourceFile file){
@@ -23,7 +23,7 @@ public class ConstTable {
         this.const_objects = new HashMap<>();
     }
 
-    public void putObject(ConstObject object){
+    public void putObject(ConstObject<?> object){
         const_objects.put(index,object);
         index++;
     }

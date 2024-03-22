@@ -62,8 +62,12 @@ public final class LexicalAnalysis {
                 sb.append((char) c);
                 c = getChar();
                 if (c == 'x') {
-
-                    return null;
+                    do{
+                        c = getChar();
+                        sb.append(c);
+                    }while (isHex(c));
+                    buffer = c;
+                    return new Token(Token.Type.NAM, String.valueOf(Integer.decode("0x"+ sb)), line, file);
                 } else {
                     if(c == ' ') return new Token(Token.Type.NUM,"0",line,file);
                     do {
@@ -76,7 +80,7 @@ public final class LexicalAnalysis {
                             sb.append((char) c);
                             c = getChar();
                         } while (isNam(c) || isNum(c));
-                        buffer = (char) c;
+                        buffer = c;
                         return new Token(Token.Type.NAM, sb.toString(), line, file);
                     }
                     buffer = c;
@@ -187,14 +191,14 @@ public final class LexicalAnalysis {
             if (c == '&') {
                 return new Token(Token.Type.SEM, "&&", line, file);
             }
-            buffer = (char) c;
+            buffer = c;
             return new Token(Token.Type.SEM, "&", line, file);
         } else if (c == '|') {
             c = getChar();
             if (c == '|') {
                 return new Token(Token.Type.SEM, "||", line, file);
             }
-            buffer = (char) c;
+            buffer = c;
             return new Token(Token.Type.SEM, "|", line, file);
         } else if (c == '"') {
             do {
@@ -245,6 +249,13 @@ public final class LexicalAnalysis {
                 tokens.add(token);
             }
         return tokens;
+    }
+
+    private boolean isHex(int c){
+        return switch (c){
+            case 'A','B','C','D','E','F','a','b','c','d','e','f'-> true;
+            default -> isNum(c);
+        };
     }
 
     private boolean isSEM(int c) {

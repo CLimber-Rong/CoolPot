@@ -25,6 +25,19 @@ public final class MetaConfig {
         }
     };
 
+    /*
+    * [Error info]
+    * Type is already defined. - 类型已定义
+    * Unable to resolve symbols. - 无法解析符号
+    * Type name is not valid. - 无效的类型名称
+    * <identifier> expected. - 需要: <标识符>
+    * ',' expected. - 需要 ','
+    * '=' expected. - 需要 '='
+    * '"' expected. - 需要 '"'
+    * Cannot found import library. - 找不到指定库
+    * Illegal escape character in string literal. - 字符串中存在非法转义字符
+     */
+
     public static boolean isKey(String k) {
         return keys.contains(k);
     }

@@ -23,6 +23,7 @@ public class Parser {
         this.parsers.add(new DefParser(file,this));
         this.parsers.add(new SfnParser(file,this));
         this.parsers.add(new SugarClassParser(file,this));
+        this.parsers.add(new SugarFuncParser(file,this));
     }
 
     public Token getToken(){

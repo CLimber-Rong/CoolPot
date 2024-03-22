@@ -14,6 +14,10 @@ public class SymbolTable {
         this.library = new ArrayList<>();
     }
 
+    public Scope getBootScope(){
+        return scope;
+    }
+
     public Scope getThisScope() {
         return getSubScope(scope);
     }
