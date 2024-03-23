@@ -1,6 +1,8 @@
 import std;
 
-def port;
+def port = func() {
+
+};
 def arg;
 
 /*

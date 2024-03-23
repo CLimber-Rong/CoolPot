@@ -1,7 +1,6 @@
 package org.coolpot.util;
 
 import org.coolpot.util.error.CompilerException;
-import org.coolpot.util.error.SyntaxException;
 
 import java.io.*;
 

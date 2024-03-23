@@ -18,6 +18,8 @@ public class Main {
                 .ofType(File.class)
                 .defaultsTo(new File("lib"))
                 .describedAs("dir_name");
+        parser.acceptsAll(asList("ns","nosfn"),"Disable sfn command.");
+        parser.acceptsAll(asList("r","runtime"),"Enable script runtime.");
 
         OptionSet set = parser.parse(args);
 
@@ -30,6 +32,14 @@ public class Main {
         if(set.has("version")){
             System.out.println(MetaConfig.version_info);
             System.exit(0);
+        }
+
+        if(set.has("nosfn")){
+            MetaConfig.disableSFN = true;
+        }
+
+        if(set.has("runtime")){
+            MetaConfig.enableRuntime = true;
         }
 
         List<String> files = new ArrayList<>();
@@ -48,6 +58,8 @@ public class Main {
                 -?, -h, --help             Print helper message.
                 -v, --version              Print compiler version.
                 -o, --out      <filename>  Set output file name.
+                --ns, --nosfn              Disable sfn command.
+                -r, --runtime              Enable script runtime.
                 """);
         /*
         List<String> buffer = new ArrayList<>();

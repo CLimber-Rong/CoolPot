@@ -4,6 +4,7 @@ import org.coolpot.bytecode.ir.STIR;
 import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.parser.*;
 import org.coolpot.compiler.tokens.Token;
+import org.coolpot.util.error.SyntaxException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -51,17 +52,25 @@ public class Parser {
                 return parser;
             }else if(head.getType().equals(Token.Type.END)) return parserStatement();
         }
+        buffer = head;
         return null;
     }
 
     public void parser(SymbolTable table){
         SubParser parser;
-        try {
-            while (!((parser = parserStatement()) instanceof NullParser)) {
+
+        while (true){
+            parser = parserStatement();
+            if(parser instanceof NullParser) break;
+            if(parser != null){
                 ASTNode ir = parser.eval(table);
                 file.nodes.add(ir);
+            }else {
+                Token token = getToken();
+                if(token.getType().equals(Token.Type.NAM)){
+
+                }else throw new SyntaxException(token,"Not a statement.");
             }
-        }catch (NullPointerException e){
         }
 
         System.out.println(table);

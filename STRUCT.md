@@ -50,9 +50,20 @@ CoolPot 项目源码结构
 | DefParser        | `def`语句分析          |
 | SugarClassParser | `class`语句语法糖       |
 
-### `org.coolpot.compiler.ir`
+### `org.coolpot.compiler.node`
 
-* CoolPot 中间代码定义
+* CoolPot 抽象语法树定义
+
+| 类名        | 描述               |
+|:----------|:-----------------|
+| ASTNode   | 语法树接口,一个实现标准     |
+| EmptyNode | 空节点,作占位符         |
+| GroupNode | 代表多个节点           |
+| [irnode]  | 该包下的节点会被直接转译成字节码 |
+
+### `org.coolpot.compiler.bytecode.ir`
+
+* CoolPot 字节码指令定义
 
 > 具体中间代码的定义以及其如何转义字节码详见 Stamon 文档
 
@@ -63,7 +74,7 @@ CoolPot 项目源码结构
 | SFN_IR    | `sfn`指令                  |
 | Member_IR | `member` 字节码             |
 
-### `org.coolpot.compiler.const`
+### `org.coolpot.compiler.bytecode.const`
 
 * 代表Stamon字节码常量池
 

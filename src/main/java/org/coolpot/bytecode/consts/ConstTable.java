@@ -9,30 +9,26 @@ import org.coolpot.bytecode.consts.objects.ConstString;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConstTable {
 
     ByteCodeFile file;
-    Map<Integer, ConstObject<?>> const_objects;
-    int index;
+    List<ConstObject<?>> const_objects;
 
     public ConstTable(ByteCodeFile file){
         this.file = file;
-        this.const_objects = new HashMap<>();
+        this.const_objects = new ArrayList<>();
     }
 
     public void putObject(ConstObject<?> object){
-        const_objects.put(index,object);
-        index++;
+        const_objects.add(object);
     }
 
     public void dump(DataOutputStream out) throws IOException {
         out.writeInt(const_objects.size());
-        for(Integer index : const_objects.keySet()){
-            out.writeInt(index);
-            ConstObject<?> consts = const_objects.get(index);
+        for(ConstObject<?> consts : const_objects){
             out.writeByte(consts.getType());
             if(consts instanceof ConstInteger)
                 out.writeInt(((ConstInteger) consts).getData());
