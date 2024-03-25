@@ -19,4 +19,8 @@ public class CompilerException extends RuntimeException{
     public void printStackTrace(PrintStream s) {
         s.println("Error ["+e.getClass().getSimpleName()+"]: "+message);
     }
+
+    public void printSuperInfo(PrintStream s){
+        super.printStackTrace(s);
+    }
 }

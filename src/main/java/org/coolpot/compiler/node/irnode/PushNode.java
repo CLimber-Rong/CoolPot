@@ -1,16 +1,21 @@
 package org.coolpot.compiler.node.irnode;
 
 import org.coolpot.compiler.node.ASTNode;
-import org.coolpot.compiler.tokens.Token;
+import org.coolpot.runtime.obj.StamonBase;
 
 public class PushNode implements ASTNode {
-    Token token;
+    StamonBase<?> value;
 
-    public PushNode(Token token){
-        this.token = token;
+    public PushNode(StamonBase value){
+        this.value = value;
     }
 
-    public Token getToken() {
-        return token;
+    public StamonBase<?> getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "[push:"+value.toString()+"]";
     }
 }

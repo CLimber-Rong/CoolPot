@@ -2,6 +2,7 @@ package org.coolpot.util.error;
 
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.compiler.tokens.UnknownToken;
+import org.coolpot.util.MetaConfig;
 
 import java.io.PrintStream;
 
@@ -27,7 +28,9 @@ public class SyntaxException extends CompilerException{
             s.println("    "+token);
         else {
             s.println("    at ("+token.getSourceFile().getFileName()+") lines:"+token.getLine()+" | token:"+token.getData());
-            s.println("    at ( "+token.getSourceFile().getLineData().get(token.getLine()-1)+" )");
+            s.println("    >> "+token.getSourceFile().getLineData().get(token.getLine()-1)+" <<");
         }
+        if(MetaConfig.isDebug)
+            super.printSuperInfo(s);
     }
 }

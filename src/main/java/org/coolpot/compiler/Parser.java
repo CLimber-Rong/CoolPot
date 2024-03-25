@@ -1,25 +1,22 @@
 package org.coolpot.compiler;
 
-import org.coolpot.bytecode.ir.STIR;
 import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.parser.*;
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.util.error.SyntaxException;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Parser {
     SourceFile file;
-    NullParser nul;
-    List<SubParser> parsers;
+    public static final NullParser nul = new NullParser();
+    Set<SubParser> parsers;
     int index;
     Token buffer;
 
     public Parser(SourceFile file){
-        this.parsers = new LinkedList<>();
+        this.parsers = new HashSet<>();
         this.file = file;
-        this.nul = new NullParser();
 
         this.parsers.add(new ImportParser(file,this));
         this.parsers.add(new DefParser(file,this));
@@ -67,9 +64,19 @@ public class Parser {
                 file.nodes.add(ir);
             }else {
                 Token token = getToken();
+                List<Token> expression;
+                ExpressionParser expressionParser;
                 if(token.getType().equals(Token.Type.NAM)){
-
-                }else throw new SyntaxException(token,"Not a statement.");
+                    expression = new ArrayList<>();
+                    do{
+                        expression.add(token);
+                        token = getToken();
+                    }while (!token.getType().equals(Token.Type.END));
+                    expressionParser = new ExpressionParser(this,expression);
+                    file.nodes.add(expressionParser.eval(table));
+                }else{
+                    throw new SyntaxException(token,"Not a statement.");
+                }
             }
         }
 

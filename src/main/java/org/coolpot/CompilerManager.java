@@ -2,6 +2,7 @@ package org.coolpot;
 
 import joptsimple.OptionSet;
 import org.coolpot.compiler.SourceFile;
+import org.coolpot.util.MetaConfig;
 import org.coolpot.util.error.CompilerException;
 
 import java.io.File;
@@ -16,7 +17,7 @@ public class CompilerManager {
     public static List<SourceFile> compiling_files = new ArrayList<>();
 
     public static void compilers(OptionSet set, Collection<String> files){
-        loadLibrary((File) set.valueOf("lib"));
+        if(!MetaConfig.disableSTD) loadLibrary((File) set.valueOf("lib"));
         for(String file : files){
             SourceFile sourceFile = new SourceFile(new File(file));
             compiling_files.add(sourceFile);

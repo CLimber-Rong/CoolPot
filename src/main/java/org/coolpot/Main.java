@@ -20,6 +20,8 @@ public class Main {
                 .describedAs("dir_name");
         parser.acceptsAll(asList("ns","nosfn"),"Disable sfn command.");
         parser.acceptsAll(asList("r","runtime"),"Enable script runtime.");
+        parser.acceptsAll(asList("nl","nostd"),"Disable compile library script.");
+        parser.acceptsAll(asList("d","debug"),"Enable compiler debug model.");
 
         OptionSet set = parser.parse(args);
 
@@ -38,8 +40,16 @@ public class Main {
             MetaConfig.disableSFN = true;
         }
 
+        if(set.has("nostd")){
+            MetaConfig.disableSTD = true;
+        }
+
         if(set.has("runtime")){
             MetaConfig.enableRuntime = true;
+        }
+
+        if(set.has("debug")){
+            MetaConfig.isDebug = true;
         }
 
         List<String> files = new ArrayList<>();
@@ -60,6 +70,8 @@ public class Main {
                 -o, --out      <filename>  Set output file name.
                 --ns, --nosfn              Disable sfn command.
                 -r, --runtime              Enable script runtime.
+                --nl, --nostd              Disable compile library script.
+                -d, --debug                Enable compiler debug model.
                 """);
         /*
         List<String> buffer = new ArrayList<>();

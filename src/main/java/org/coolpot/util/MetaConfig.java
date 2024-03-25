@@ -13,8 +13,14 @@ public final class MetaConfig {
     +".\nCopyright 2024 by XIAOYI12, CLimber-Rong.");
 
     public static boolean disableSFN = false;
+    public static boolean disableSTD = false;
     public static boolean enableRuntime = false;
+    public static boolean isDebug = false;
     public static byte[] bc_version = {0,0,1};
+
+    public static final Set<String> OP_DATA = Set.of("+", "-", "*", "/", ">=", "<=", "==", "!", "&",
+            "|", "=", ">", "<", ",", "+=", "-=", "*=", "/=", "%", "%=",
+            "++", "--", "&&", "||", "^", ".");
 
     private static final Set<String> keys = new HashSet<>(){
         {
@@ -38,10 +44,12 @@ public final class MetaConfig {
     * ',' expected. - 需要 ','
     * '=' expected. - 需要 '='
     * '"' expected. - 需要 '"'
+    * '(' expected. - 需要 '('
     * Cannot found import library. - 找不到指定库
     * Illegal escape character in string literal. - 字符串中存在非法转义字符
+    * Illegal symbol in function define. - 函数定义中存在非法字符
     * Not a statement. - 不是语句
-    *
+    * Missing function body. - 缺少函数体
      */
 
     public static boolean isKey(String k) {

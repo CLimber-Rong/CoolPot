@@ -1,12 +1,7 @@
-import std;
+//import std;
 
-def port = func() {
 
-};
-def arg;
+func name(agrrs){
+    def a = 1;
+}
 
-/*
-    你好! 世界!
-*/
-
-// aaaa

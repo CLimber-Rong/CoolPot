@@ -17,4 +17,9 @@ public class GroupNode implements ASTNode{
     public List<ASTNode> getNodes() {
         return nodes;
     }
+
+    @Override
+    public String toString() {
+        return "{"+nodes.toString()+"}";
+    }
 }
