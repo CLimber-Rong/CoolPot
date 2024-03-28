@@ -76,6 +76,7 @@ public class Token {
         LITX,// 行注释
         UTF8,// utf-8 字符
         UKN, // 未知字符
+        NBF, // 语法树节点缓存
     }
 
 }

@@ -40,11 +40,15 @@ public class DefParser implements SubParser {
                 String name = token.getData();
                 token = parser.getToken();
                 if(token.getType().equals(Token.Type.SEM)&&token.getData().equals("=")) {
-                    List<Token> expression = new ArrayList<>();
+                    List<Token> expression = new ArrayList<>(); // 表达式解析
+                    int i = 0;
                     do{
                         token = parser.getToken();
+                        if (token.getType().equals(Token.Type.LP) && token.getData().equals("{")) i += 1;
+                        if (token.getType().equals(Token.Type.LR) && token.getData().equals("}")) i -= 1;
+                        if (i == 0 && token.getType().equals(Token.Type.END)) break;
                         expression.add(token);
-                    }while (!token.getType().equals(Token.Type.END));
+                    }while (true);
                     ExpressionParser ep = new ExpressionParser(parser,expression);
                     return new GroupNode(ep.eval(table),new DefNode(name));
                 }else if(token.getType().equals(Token.Type.END)){

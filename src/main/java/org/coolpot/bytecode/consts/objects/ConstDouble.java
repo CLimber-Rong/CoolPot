@@ -6,8 +6,7 @@ public class ConstDouble extends ConstObject<Double>{
     int index;
     double data;
 
-    public ConstDouble(int index,double data){
-        this.index = index;
+    public ConstDouble(double data){
         this.data = data;
     }
 
@@ -24,5 +23,10 @@ public class ConstDouble extends ConstObject<Double>{
     @Override
     public byte getType() {
         return ConstTable.DOUBLE;
+    }
+
+    @Override
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

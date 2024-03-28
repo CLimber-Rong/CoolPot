@@ -35,7 +35,7 @@ public class SugarFuncParser implements SubParser {
         this.file = file;
     }
 
-    private Token getToken() {
+    protected Token getToken() {
         if (tokens == null) {
             return parser.getToken();
         } else {
@@ -58,8 +58,10 @@ public class SugarFuncParser implements SubParser {
         String name = "";
         if (token.getType().equals(Token.Type.NAM)) {
             if (!table.isDefine(token.getData())) {
+                if(table.hasScope(SymbolTable.ScopeType.IF) || table.hasScope(SymbolTable.ScopeType.WHILE))
+                    throw new SyntaxException(token,"Illegal statement.");
                 table.getThisScope().getInDefine().add(token.getData());
-                table.createNewScope(new SymbolTable.Scope("func:"+token.getData()));
+                table.createNewScope(new SymbolTable.Scope("func:"+token.getData(), SymbolTable.ScopeType.FUNC));
                 name = token.getData();
                 nodes.add(parserFuncArg(table));
                 List<Token> block = new ArrayList<>();
@@ -78,6 +80,7 @@ public class SugarFuncParser implements SubParser {
                 } catch (NullPointerException e) {
                     throw new SyntaxException(token,"'}' expected.");
                 }
+
                 nodes.add(subParser(table,block));
             } else throw new SyntaxException(token, "Type is already defined.");
         } else throw new SyntaxException(token, "<identifier> expected.");
@@ -102,9 +105,12 @@ public class SugarFuncParser implements SubParser {
                     table.getThisScope().getInDefine().add(token.getData());
                     nodes.add(new DefNode(token.getData()));
                     token = getToken();
-                    if(token.getType().equals(Token.Type.SEM)&&token.getData().equals(",")) continue;
+                    if(token.getType().equals(Token.Type.SEM)&&token.getData().equals(",")) {
+                    }
                     else if(token.getType().equals(Token.Type.LR) && token.getData().equals(")")) break;
                     else throw new SyntaxException(token,"Illegal symbol in function define.");
+                }else if(token.getType().equals(Token.Type.LR) && token.getData().equals(")")) {
+                    break;
                 }else throw new SyntaxException(token,"<identifier> expected.");
             }while (!(token.getType().equals(Token.Type.LR) && token.getData().equals(")")));
         }else throw new SyntaxException(token,"'(' expected.");

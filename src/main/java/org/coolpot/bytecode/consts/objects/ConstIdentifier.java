@@ -2,17 +2,12 @@ package org.coolpot.bytecode.consts.objects;
 
 import org.coolpot.bytecode.consts.ConstTable;
 
-public class ConstString extends ConstObject<String>{
-
-    String data;
+public class ConstIdentifier extends ConstObject<String>{
     int index;
+    String identifier;
 
-    public ConstString(String data){
-        this.data = data;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
+    public ConstIdentifier(String identifier){
+        this.identifier = identifier;
     }
 
     @Override
@@ -22,12 +17,15 @@ public class ConstString extends ConstObject<String>{
 
     @Override
     public String getData() {
-        return data;
+        return identifier;
     }
 
     @Override
     public byte getType() {
-        return ConstTable.STRING;
+        return ConstTable.IDENTIFIER;
     }
 
+    @Override
+    public void setIndex(int index) {
+    }
 }

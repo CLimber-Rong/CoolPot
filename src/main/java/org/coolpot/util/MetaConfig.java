@@ -32,6 +32,10 @@ public final class MetaConfig {
             add("while");
             add("else");
             add("sfn");
+            add("break");
+            add("continue");
+            add("for");
+            add("new");
         }
     };
 
@@ -49,7 +53,9 @@ public final class MetaConfig {
     * Illegal escape character in string literal. - 字符串中存在非法转义字符
     * Illegal symbol in function define. - 函数定义中存在非法字符
     * Not a statement. - 不是语句
-    * Missing function body. - 缺少函数体
+    * Missing function body. - 缺少函数/方法体
+    * Missing class body. - 缺少类体
+    * Illegal statement. - 非法语句
      */
 
     public static boolean isKey(String k) {

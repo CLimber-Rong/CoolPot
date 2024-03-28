@@ -54,3 +54,7 @@ your bytecode.</p>
 > -r, --runtime  
   * Enable script runtime.
   * 启动内置脚本运行时
+
+> -d, --debug
+  * Enable compiler debug model.
+  * 启用编译器DEBUG模式

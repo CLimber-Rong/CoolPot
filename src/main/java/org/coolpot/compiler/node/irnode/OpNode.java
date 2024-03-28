@@ -28,7 +28,10 @@ public class OpNode implements ASTNode {
         BXOR,
         BOR,
         LAND,
-        LOR
+        LOR,
+        CALL,
+        NEW,
+        ASSIGN
     }
 
     @Override

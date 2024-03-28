@@ -7,9 +7,8 @@ public class ConstInteger extends ConstObject<Integer>{
     int data;
     int index;
 
-    public ConstInteger(int data,int index){
+    public ConstInteger(int data){
         this.data = data;
-        this.index = index;
     }
 
     @Override
@@ -25,5 +24,10 @@ public class ConstInteger extends ConstObject<Integer>{
     @Override
     public byte getType() {
         return ConstTable.INT;
+    }
+
+    @Override
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

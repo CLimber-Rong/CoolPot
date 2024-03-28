@@ -1,9 +1,6 @@
 package org.coolpot.compiler;
 
-import org.coolpot.compiler.parser.BlockParser;
-import org.coolpot.compiler.parser.DefParser;
-import org.coolpot.compiler.parser.SfnParser;
-import org.coolpot.compiler.parser.SubParser;
+import org.coolpot.compiler.parser.*;
 import org.coolpot.compiler.tokens.Token;
 
 import java.util.HashSet;
@@ -29,6 +26,7 @@ public class BParser extends Parser{
 
         this.parsers.add(new DefParser(file,this));
         this.parsers.add(new SfnParser(file,this));
+        this.parsers.add(new SugarFuncParser(file,this));
     }
 
     public SubParser getParser(){
@@ -39,6 +37,7 @@ public class BParser extends Parser{
                 return parser;
             }
         }
+        parser.buffer = head;
         return Parser.nul;
     }
 

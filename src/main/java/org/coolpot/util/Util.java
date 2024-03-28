@@ -3,6 +3,8 @@ package org.coolpot.util;
 import org.coolpot.util.error.CompilerException;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.util.stream.Collector;
 
 public class Util {
 
@@ -22,11 +24,11 @@ public class Util {
     }
 
     public static char[] readFile(File file){
-        try(BufferedReader reader = new BufferedReader(new FileReader(file))){
+        try(BufferedReader reader = Files.newBufferedReader(file.toPath())){
             StringBuilder sb = new StringBuilder();
-            String buffer;
-            while ((buffer = reader.readLine()) != null)
-                sb.append(buffer).append('\n');
+            String buf;
+            while ((buf = reader.readLine()) != null)
+                sb.append(buf).append('\n');
             return sb.toString().toCharArray();
         }catch (IOException io){
             throw new CompilerException(io,"Error: Cannot read source file!");

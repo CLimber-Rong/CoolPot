@@ -13,10 +13,17 @@ public class SymbolTable {
 
     public SymbolTable(SourceFile file){
         this.file = file;
-        this.scope = new Scope("Boot");
+        this.scope = new Scope("Boot",ScopeType.BOOT);
         this.library = new ArrayList<>();
         this.scope_stack = new LinkedList<>();
         createNewScope(scope);
+    }
+
+    public boolean hasScope(ScopeType type){
+        for(Scope scope_s : scope_stack){
+            if(scope_s.type.equals(type)) return true;
+        }
+        return false;
     }
 
     public void createNewScope(Scope scope){
@@ -55,19 +62,35 @@ public class SymbolTable {
                 "}";
     }
 
+    public enum ScopeType {
+        BOOT,
+        FUNC,
+        WHILE,
+        IF,
+        CLASS,
+    }
+
     public static class Scope {
         String name;
         List<String> in_define;
-        boolean isFunc;
+        ScopeType type;
 
-        public Scope(String name){
+        public Scope(String name,ScopeType type){
             this.name = name;
+            this.type = type;
             this.in_define = new ArrayList<>();
         }
 
+        public void setType(ScopeType type) {
+            this.type = type;
+        }
 
         public List<String> getInDefine() {
             return in_define;
+        }
+
+        public ScopeType getType() {
+            return type;
         }
 
         @Override

@@ -24,11 +24,15 @@ public class SyntaxException extends CompilerException{
     @Override
     public void printStackTrace(PrintStream s) {
         s.println("SyntaxError: "+message);
-        if(token instanceof UnknownToken)
-            s.println("    "+token);
-        else {
-            s.println("    at ("+token.getSourceFile().getFileName()+") lines:"+token.getLine()+" | token:"+token.getData());
-            s.println("    >> "+token.getSourceFile().getLineData().get(token.getLine()-1)+" <<");
+        try {
+            if (token instanceof UnknownToken)
+                s.println("    " + token);
+            else {
+                s.println("    at (" + token.getSourceFile().getFileName() + ") lines:" + token.getLine() + " | token:" + token.getData());
+                s.println("    >> " + token.getSourceFile().getLineData().get(token.getLine() - 1) + " <<");
+            }
+        }catch (NullPointerException e){
+            s.println("    at (Unknown source file info)");
         }
         if(MetaConfig.isDebug)
             super.printSuperInfo(s);

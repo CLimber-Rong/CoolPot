@@ -53,10 +53,11 @@ public final class LexicalAnalysis {
             if (c == null) return null;
         } while (c == ' ' || c == '\t');
 
-        if (isSEM(c)) {
+
+        if (isSEM(c)) { //判断单字符
             sb.append(c);
             return new Token(Token.Type.SEM, sb.toString(), line, file);
-        } else if (isNum(c)) {
+        } else if (isNum(c)) {  //数字
             boolean isdouble = false;
             if (c == '0') {
                 sb.append((char) c);
@@ -105,7 +106,7 @@ public final class LexicalAnalysis {
                 if (isdouble) return new Token(Token.Type.DBL, sb.toString(), line, file);
                 else return new Token(Token.Type.NUM, sb.toString(), line, file);
             }
-        } else if (isNam(c)) {
+        } else if (isNam(c)) { //标识符 / 关键字 (字段)
             do {
                 sb.append((char) c);
                 c = getChar();
@@ -123,10 +124,37 @@ public final class LexicalAnalysis {
             }
             buffer = c;
             return new Token(Token.Type.SEM, sb.toString(), line, file);
-        } else if (c == '>' || c == '<') {
+        } else if (c == '>'){
             sb.append((char) c);
             c = getChar();
             if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
+            }else if(c == '>'){
+                c = getChar();
+                if(c == '='){
+                    sb.append((char) c);
+                    return new Token(Token.Type.SEM, sb.toString(), line, file);
+                }
+                buffer = c;
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, sb.toString(), line, file);
+        } else if( c == '<') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
+            }else if(c == '<'){
+                c = getChar();
+                if(c == '='){
+                    sb.append((char) c);
+                    return new Token(Token.Type.SEM, sb.toString(), line, file);
+                }
+                buffer = c;
                 sb.append((char) c);
                 return new Token(Token.Type.SEM, sb.toString(), line, file);
             }
@@ -186,10 +214,37 @@ public final class LexicalAnalysis {
             }
             buffer = c;
             return new Token(Token.Type.SEM, "*", line, file);
+        }else if (c == '^') {
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, "*", line, file);
         } else if (c == '&') {
             c = getChar();
             if (c == '&') {
                 return new Token(Token.Type.SEM, "&&", line, file);
+            }else if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, "&", line, file);
+        }else if (c == '%') {
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
+            }
+            buffer = c;
+            return new Token(Token.Type.SEM, "&", line, file);
+        }else if (c == '!') {
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
             }
             buffer = c;
             return new Token(Token.Type.SEM, "&", line, file);
@@ -197,6 +252,9 @@ public final class LexicalAnalysis {
             c = getChar();
             if (c == '|') {
                 return new Token(Token.Type.SEM, "||", line, file);
+            }else if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.Type.SEM, sb.toString(), line, file);
             }
             buffer = c;
             return new Token(Token.Type.SEM, "|", line, file);
@@ -259,7 +317,7 @@ public final class LexicalAnalysis {
     }
 
     private boolean isSEM(int c) {
-        return (c == ':') || (c == '!') || (c == '.') || (c == ',') || (c == '%') || (c == '$');
+        return (c == ':') || (c == '.') || (c == ',') || (c == '$');
     }
 
     private boolean isNam(int c) {

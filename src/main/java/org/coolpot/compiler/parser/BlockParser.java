@@ -16,6 +16,7 @@ public class BlockParser implements SubParser{
     SourceFile file;
     List<Token> block;
     BParser block_parser;
+    public Token buffer;
     int index;
 
     public BlockParser(SourceFile file, Parser parser){
@@ -34,6 +35,11 @@ public class BlockParser implements SubParser{
 
     public Token getToken(){
         if(block != null){
+            if(buffer != null){
+                Token t = buffer;
+                buffer = null;
+                return t;
+            }
             if (index >= block.size()) return null;
             Token token = block.get(index);
             index++;
@@ -46,6 +52,7 @@ public class BlockParser implements SubParser{
         if(sp == null) return null;
         if(sp instanceof NullParser){
             Token token = getToken();
+
             if(token == null) return new EmptyNode();
             List<Token> expression;
             ExpressionParser expressionParser;

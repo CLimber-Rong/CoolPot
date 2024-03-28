@@ -20,10 +20,21 @@ public class ConstTable {
     public ConstTable(ByteCodeFile file){
         this.file = file;
         this.const_objects = new ArrayList<>();
+        ConstString init = new ConstString("__init__");
+        putObject(init);
     }
 
     public void putObject(ConstObject<?> object){
+        int index = 0;
+        for(ConstObject<?> o : const_objects){
+            if(o.equals(object)){
+                object.setIndex(index);
+                return;
+            }
+            index++;
+        }
         const_objects.add(object);
+        object.setIndex(const_objects.size() - 1);
     }
 
     public void dump(DataOutputStream out) throws IOException {
@@ -41,5 +52,5 @@ public class ConstTable {
         }
     }
 
-    public static final byte INT = 0x01, DOUBLE = 0x02, STRING = 0x03;
+    public static final byte INT = 0x01, DOUBLE = 0x02, STRING = 0x03,IDENTIFIER = 0x04;
 }
