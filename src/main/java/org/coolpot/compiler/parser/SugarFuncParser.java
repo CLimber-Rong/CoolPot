@@ -58,7 +58,7 @@ public class SugarFuncParser implements SubParser {
         String name = "";
         if (token.getType().equals(Token.Type.NAM)) {
             if (!table.isDefine(token.getData())) {
-                if(table.hasScope(SymbolTable.ScopeType.IF) || table.hasScope(SymbolTable.ScopeType.WHILE))
+                if(table.hasScope(SymbolTable.ScopeType.IF) || table.hasScope(SymbolTable.ScopeType.WHILE) || table.hasScope(SymbolTable.ScopeType.FUNC))
                     throw new SyntaxException(token,"Illegal statement.");
                 table.getThisScope().getInDefine().add(token.getData());
                 table.createNewScope(new SymbolTable.Scope("func:"+token.getData(), SymbolTable.ScopeType.FUNC));

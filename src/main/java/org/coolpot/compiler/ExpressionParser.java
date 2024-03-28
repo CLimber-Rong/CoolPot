@@ -7,6 +7,7 @@ import org.coolpot.compiler.node.irnode.OpNode;
 import org.coolpot.compiler.node.irnode.PushNode;
 import org.coolpot.compiler.node.statment.ClassNode;
 import org.coolpot.compiler.node.statment.DefNode;
+import org.coolpot.compiler.node.statment.FuncNode;
 import org.coolpot.compiler.parser.BlockParser;
 import org.coolpot.compiler.parser.SubParser;
 import org.coolpot.compiler.tokens.NodeBufferToken;
@@ -105,7 +106,7 @@ public class ExpressionParser implements SubParser {
                             } catch (NullPointerException e) {
                                 throw new SyntaxException(token,"'}' expected.");
                             }
-                            suffixList.add(new NodeBufferToken(new GroupNode(node,subParser(table,block))));
+                            suffixList.add(new NodeBufferToken(new FuncNode(new GroupNode(node,subParser(table,block)))));
                             table.popScope();
                         }
                         case "class" -> {
@@ -127,7 +128,7 @@ public class ExpressionParser implements SubParser {
                             }
 
                             table.createNewScope(new SymbolTable.Scope("class:<expression>", SymbolTable.ScopeType.CLASS));
-                            suffixList.add(new NodeBufferToken(new ClassNode(new BlockParser(parser.file,class_body).eval(table))));
+                            suffixList.add(new NodeBufferToken(new ClassNode(subParser(table,class_body))));
                             table.popScope();
                         }
                         default -> throw new SyntaxException(token, "Illegal keywords.");

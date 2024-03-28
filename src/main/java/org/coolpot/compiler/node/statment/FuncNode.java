@@ -12,6 +12,10 @@ public class FuncNode implements ASTNode {
         this.name = name;
     }
 
+    public FuncNode(GroupNode node){
+        this.node = node;
+    }
+
     public GroupNode getNode() {
         return node;
     }
