@@ -12,7 +12,7 @@ public class IfParser implements SubParser{
     Parser parser;
 
     public IfParser(SourceFile file, Parser parser){
-        this.match = new Token(Token.Type.KEY,"class",0,file);
+        this.match = new Token(Token.Type.KEY,"if",0,file);
         this.parser = parser;
     }
 

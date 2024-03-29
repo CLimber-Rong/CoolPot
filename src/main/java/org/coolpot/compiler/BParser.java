@@ -27,6 +27,9 @@ public class BParser extends Parser{
         this.parsers.add(new DefParser(file,this));
         this.parsers.add(new SfnParser(file,this));
         this.parsers.add(new SugarFuncParser(file,this));
+        this.parsers.add(new BreakParser(file,this));
+        this.parsers.add(new ContinueParser(file,this));
+        this.parsers.add(new ReturnParser(file,this));
     }
 
     public SubParser getParser(){

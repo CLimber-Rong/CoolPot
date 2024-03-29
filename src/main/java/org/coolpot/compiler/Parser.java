@@ -12,7 +12,7 @@ public class Parser {
     public static final NullParser nul = new NullParser();
     Set<SubParser> parsers;
     int index;
-    Token buffer;
+    Token buffer,current_token;
 
     public Parser(SourceFile file){
         this.parsers = new HashSet<>();
@@ -29,6 +29,7 @@ public class Parser {
         if(buffer != null){
             Token b = buffer;
             buffer = null;
+            current_token = b;
             return b;
         }else {
             if(index >= file.tokens.size()){
@@ -36,9 +37,18 @@ public class Parser {
             }else {
                 Token t = file.tokens.get(index);
                 index++;
+                current_token = t;
                 return t;
             }
         }
+    }
+
+    public void setBuffer(Token buffer) {
+        this.buffer = buffer;
+    }
+
+    public Token getCurrentToken() {
+        return current_token;
     }
 
     private SubParser parserStatement(){
