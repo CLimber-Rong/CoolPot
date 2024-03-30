@@ -38,6 +38,9 @@ public final class MetaConfig {
             add("new");
             add("true");
             add("false");
+            add("null");
+            add("extends");
+            add("in");
         }
     };
 
@@ -58,8 +61,8 @@ public final class MetaConfig {
     * Missing function body. - 缺少函数/方法体
     * Missing class body. - 缺少类体
     * Illegal statement. - 非法语句
-    * back outside loop. - 退出语句定义在循环外部
-    * return outside function. - 返回语句定义在函数外部
+    * back outside loop. - 退出语句位于循环体外部
+    * return outside function. - 返回语句位于方法体外部
      */
 
     public static boolean isKey(String k) {

@@ -86,7 +86,7 @@ public class SugarFuncParser implements SubParser {
         } else throw new SyntaxException(token, "<identifier> expected.");
         table.popScope();
 
-        return new GroupNode(new PushNode(new StamonFunc(new FuncNode(name,new GroupNode(nodes)))),new DefNode(name));
+        return new DefNode(name,new GroupNode(new PushNode(new StamonFunc(new FuncNode(name,new GroupNode(nodes))))));
     }
 
     public ASTNode subParser(SymbolTable table,List<Token> tokens){
@@ -103,7 +103,7 @@ public class SugarFuncParser implements SubParser {
                     if(table.getThisScope().getInDefine().contains(token.getData()))
                         throw new SyntaxException(token,"Type is already defined.");
                     table.getThisScope().getInDefine().add(token.getData());
-                    nodes.add(new DefNode(token.getData()));
+                    nodes.add(new DefNode(token.getData(),new GroupNode(ASTNode.empty)));
                     token = getToken();
                     if(token.getType().equals(Token.Type.SEM)&&token.getData().equals(",")) {
                     }

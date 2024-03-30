@@ -7,4 +7,5 @@ public interface ASTNode {
     static EmptyNode empty = new EmptyNode();
     BreakNode break_node = new BreakNode();
     ContinueNode continue_node = new ContinueNode();
+    void getString(int trace,StringBuilder sb);
 }

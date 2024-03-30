@@ -5,4 +5,10 @@ public class StamonNull extends StamonBase<Object>{
     public Object getData() {
         return null;
     }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("<null>\n");
+    }
 }

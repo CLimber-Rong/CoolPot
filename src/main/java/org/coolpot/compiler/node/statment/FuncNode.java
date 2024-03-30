@@ -21,6 +21,17 @@ public class FuncNode implements ASTNode {
     }
 
     @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("[func:").append(name).append('\n');
+        node.getString(trace + 1,sb);
+        /*
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("]\n");
+         */
+    }
+
+    @Override
     public String toString() {
         return "{<"+name+">:["+node.toString()+"]}";
     }

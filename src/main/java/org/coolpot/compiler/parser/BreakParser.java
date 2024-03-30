@@ -28,6 +28,5 @@ public class BreakParser implements SubParser{
         if(table.hasScope(SymbolTable.ScopeType.WHILE)){
             return ASTNode.break_node;
         }else throw new SyntaxException(parser.getCurrentToken(),"back outside loop.");
-
     }
 }

@@ -7,4 +7,10 @@ public class ContinueNode implements ASTNode {
     public String toString() {
         return "[continue]";
     }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("[continue]\n");
+    }
 }

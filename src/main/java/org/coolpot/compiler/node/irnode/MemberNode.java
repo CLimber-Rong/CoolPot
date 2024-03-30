@@ -7,4 +7,10 @@ public class MemberNode implements ASTNode {
     public String toString() {
         return "[member]";
     }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("[member]\n");
+    }
 }

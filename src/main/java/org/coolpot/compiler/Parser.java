@@ -3,6 +3,7 @@ package org.coolpot.compiler;
 import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.parser.*;
 import org.coolpot.compiler.tokens.Token;
+import org.coolpot.util.MetaConfig;
 import org.coolpot.util.error.SyntaxException;
 
 import java.util.*;
@@ -88,6 +89,12 @@ public class Parser {
                     throw new SyntaxException(token,"Not a statement.");
                 }
             }
+        }
+
+        if(MetaConfig.enableRuntime){
+
+        }else {
+
         }
 
         System.out.println(table);

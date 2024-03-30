@@ -7,4 +7,10 @@ public class BreakNode implements ASTNode {
     public String toString() {
         return "[break]";
     }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("[break]\n");
+    }
 }

@@ -17,8 +17,20 @@ public class ClassNode implements ASTNode {
         this.node = node;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ASTNode getNode() {
         return node;
+    }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("[class:").append(name).append('\n');
+        node.getString(trace + 1,sb);
+        //sb.append(" ".repeat(Math.max(0, trace)));sb.append("]\n");
     }
 
     @Override

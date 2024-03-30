@@ -1,6 +1,7 @@
 package org.coolpot.compiler;
 
 import org.coolpot.compiler.node.ASTNode;
+import org.coolpot.compiler.node.EmptyNode;
 import org.coolpot.compiler.node.GroupNode;
 import org.coolpot.compiler.node.irnode.MemberNode;
 import org.coolpot.compiler.node.irnode.OpNode;
@@ -246,7 +247,7 @@ public class ExpressionParser implements SubParser {
                     if(table.getThisScope().getInDefine().contains(token.getData()))
                         throw new SyntaxException(token,"Type is already defined.");
                     table.getThisScope().getInDefine().add(token.getData());
-                    nodes.add(new DefNode(token.getData()));
+                    nodes.add(new DefNode(token.getData(),new GroupNode(ASTNode.empty)));
                     token = getToken();
                     if(token.getType().equals(Token.Type.SEM)&&token.getData().equals(",")) {
                     }

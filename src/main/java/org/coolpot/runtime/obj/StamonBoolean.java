@@ -12,4 +12,10 @@ public class StamonBoolean extends StamonBase<Boolean> {
     public Boolean getData() {
         return data;
     }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("<boolean:").append(data).append(">\n");
+    }
 }

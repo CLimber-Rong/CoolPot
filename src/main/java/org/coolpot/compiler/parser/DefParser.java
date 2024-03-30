@@ -50,10 +50,9 @@ public class DefParser implements SubParser {
                         expression.add(token);
                     }while (true);
                     ExpressionParser ep = new ExpressionParser(parser,expression);
-                    return new GroupNode(ep.eval(table),new DefNode(name));
+                    return new DefNode(name, (GroupNode) ep.eval(table));
                 }else if(token.getType().equals(Token.Type.END)){
-                    return new GroupNode(new PushNode(StamonBase.value_null),
-                            new DefNode(name));
+                    return new DefNode(name,new GroupNode(new PushNode(StamonBase.value_null)));
                 }else{
                     throw new SyntaxException(token,"'=' expected.");
                 }

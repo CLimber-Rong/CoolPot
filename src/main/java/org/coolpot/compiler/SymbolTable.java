@@ -1,5 +1,8 @@
 package org.coolpot.compiler;
 
+import org.coolpot.compiler.node.ASTNode;
+import org.coolpot.compiler.node.GroupNode;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -53,12 +56,19 @@ public class SymbolTable {
         return library;
     }
 
+    public SourceFile getFile() {
+        return file;
+    }
+
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+        new GroupNode(file.nodes).getString(1,sb);
+
         return "SymbolTable: ("+file.getFileName()+"){\n" +
                 "    Librarys: "+library.toString()+"\n" +
                 "    Scope: "+scope.toString()+"\n" +
-                "    Nodes: "+file.nodes.toString()+"\n" +
+                "    Nodes: \n"+sb+"\n" +
                 "}";
     }
 

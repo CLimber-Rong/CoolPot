@@ -74,4 +74,8 @@ public class SourceFile {
         }
         return token_2;
     }
+
+    public List<ASTNode> getNodes() {
+        return nodes;
+    }
 }

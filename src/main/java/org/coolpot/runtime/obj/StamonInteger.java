@@ -10,4 +10,10 @@ public class StamonInteger extends StamonBase<Integer>{
     public Integer getData() {
         return data;
     }
+
+    @Override
+    public void getString(int trace, StringBuilder sb) {
+        sb.append(" ".repeat(Math.max(0, trace)));
+        sb.append("<int:").append(data).append(">\n");
+    }
 }
