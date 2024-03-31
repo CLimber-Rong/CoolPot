@@ -86,7 +86,7 @@ public class SugarFuncParser implements SubParser {
         } else throw new SyntaxException(token, "<identifier> expected.");
         table.popScope();
 
-        return new DefNode(name,new GroupNode(new PushNode(new StamonFunc(new FuncNode(name,new GroupNode(nodes))))));
+        return new DefNode(name,new GroupNode(new FuncNode(name,new GroupNode(nodes))));
     }
 
     public ASTNode subParser(SymbolTable table,List<Token> tokens){

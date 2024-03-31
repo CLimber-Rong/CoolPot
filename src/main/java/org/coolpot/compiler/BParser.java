@@ -1,6 +1,7 @@
 package org.coolpot.compiler;
 
 import org.coolpot.compiler.parser.*;
+import org.coolpot.compiler.parser.loop.WhileParser;
 import org.coolpot.compiler.tokens.Token;
 
 import java.util.HashSet;
@@ -30,6 +31,7 @@ public class BParser extends Parser{
         this.parsers.add(new BreakParser(file,this));
         this.parsers.add(new ContinueParser(file,this));
         this.parsers.add(new ReturnParser(file,this));
+        this.parsers.add(new WhileParser(file,this));
     }
 
     public SubParser getParser(){

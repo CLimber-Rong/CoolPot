@@ -1,7 +1,6 @@
 package org.coolpot.compiler;
 
 import org.coolpot.compiler.node.ASTNode;
-import org.coolpot.compiler.node.EmptyNode;
 import org.coolpot.compiler.node.GroupNode;
 import org.coolpot.compiler.node.irnode.MemberNode;
 import org.coolpot.compiler.node.irnode.OpNode;
@@ -14,8 +13,10 @@ import org.coolpot.compiler.parser.SubParser;
 import org.coolpot.compiler.tokens.NodeBufferToken;
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.compiler.tokens.UnaryBufferToken;
+import org.coolpot.runtime.OptimizeExpression;
 import org.coolpot.runtime.obj.*;
 import org.coolpot.util.MetaConfig;
+import org.coolpot.util.error.OptimizeException;
 import org.coolpot.util.error.SyntaxException;
 
 import java.util.ArrayList;
@@ -177,6 +178,15 @@ public class ExpressionParser implements SubParser {
     public ASTNode calculate(List<Token> suffix){
         List<ASTNode> nodes = new ArrayList<>();
 
+        try {
+            if (MetaConfig.isO2) {
+                OptimizeExpression oe = new OptimizeExpression(suffix);
+                return oe.eval();
+            }
+        }catch (OptimizeException ignored){
+            System.out.println("[WARN]: Expression cannot optimize ("+parser.file.getFileName()+").");
+        }
+
         for(Token token : suffix){
             switch (token.getType()){
                 case NUM,BIN,B16 -> nodes.add(new PushNode(new StamonInteger(Integer.parseInt(token.getData()))));
@@ -234,7 +244,7 @@ public class ExpressionParser implements SubParser {
 
     private static boolean isUnaryOperator(Token token, boolean isU) {
         if (token.getType() != Token.Type.SEM) return false;
-        return isU && (token.getData().equals("-") || token.getData().equals("++") || token.getData().equals("--"));
+        return isU && (token.getData().equals("-") || token.getData().equals("++") || token.getData().equals("--") || token.getData().equals("~"));
     }
 
     public ASTNode parserFuncArg(SymbolTable table) {

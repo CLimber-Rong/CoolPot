@@ -2,6 +2,7 @@ package org.coolpot.compiler;
 
 import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.parser.*;
+import org.coolpot.compiler.parser.loop.WhileParser;
 import org.coolpot.compiler.tokens.Token;
 import org.coolpot.util.MetaConfig;
 import org.coolpot.util.error.SyntaxException;
@@ -24,6 +25,7 @@ public class Parser {
         this.parsers.add(new SfnParser(file,this));
         this.parsers.add(new SugarClassParser(file,this));
         this.parsers.add(new SugarFuncParser(file,this));
+        this.parsers.add(new WhileParser(file,this));
     }
 
     public Token getToken(){

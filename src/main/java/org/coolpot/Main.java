@@ -22,6 +22,7 @@ public class Main {
         parser.acceptsAll(asList("r","runtime"),"Enable script runtime.");
         parser.acceptsAll(asList("nl","nostd"),"Disable compile library script.");
         parser.acceptsAll(asList("d","debug"),"Enable compiler debug model.");
+        parser.acceptsAll(asList("o2","O2"),"Enable compiler debug model.");
 
         OptionSet set = parser.parse(args);
 
@@ -50,6 +51,10 @@ public class Main {
 
         if(set.has("debug")){
             MetaConfig.isDebug = true;
+        }
+
+        if(set.has("o2")){
+            MetaConfig.isO2 = true;
         }
 
         List<String> files = new ArrayList<>();

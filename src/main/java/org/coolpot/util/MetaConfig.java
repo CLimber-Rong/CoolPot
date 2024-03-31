@@ -16,6 +16,7 @@ public final class MetaConfig {
     public static boolean disableSTD = false;
     public static boolean enableRuntime = false;
     public static boolean isDebug = false;
+    public static boolean isO2 = false;
     public static byte[] bc_version = {0,0,1};
 
     public static final Set<String> OP_DATA = Set.of("+", "-", "*", "/", ">=", "<=", "==", "!", "&",
