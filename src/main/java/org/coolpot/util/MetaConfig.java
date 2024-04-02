@@ -7,7 +7,7 @@ public final class MetaConfig {
     private MetaConfig(){}
 
     public static final String name = Util.dynamic("CoolPot");
-    public static final String version = Util.dynamic("v0.0.1");
+    public static final String version = Util.dynamic("v0.0.4");
 
     public static final String version_info = Util.dynamic(name+" (OpenJDK, Build by plants-os) "+version
     +".\nCopyright 2024 by XIAOYI12, CLimber-Rong.");
@@ -61,6 +61,7 @@ public final class MetaConfig {
     * Not a statement. - 不是语句
     * Missing function body. - 缺少函数/方法体
     * Missing class body. - 缺少类体
+    * Missing statement body. - 缺少语句体
     * Illegal statement. - 非法语句
     * back outside loop. - 退出语句位于循环体外部
     * return outside function. - 返回语句位于方法体外部
