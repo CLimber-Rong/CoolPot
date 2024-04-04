@@ -25,11 +25,6 @@ public class DefNode implements ASTNode {
         sb.append(" ".repeat(Math.max(0, trace)));
         sb.append("[def:").append(name).append('\n');
         vars.getString(trace + 1,sb);
-        /*
-        sb.append(" ".repeat(Math.max(0, trace)));
-        sb.append("]\n");
-        */
-
     }
 
     @Override

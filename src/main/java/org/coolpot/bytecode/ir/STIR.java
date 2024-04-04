@@ -27,7 +27,7 @@ public abstract class STIR {
     BOR = 0X13, // |
     LAND = 0X14,// &&
     LOR = 0X15, // ||
-    ASSIGN = 0X16, //XXX: Unknown IR
+    ASSIGN = 0X16, // =
     MEMBER = 0X17,
     DEF = 0x18,
     FUNC = 0x19, END = 0x1A,
@@ -36,9 +36,13 @@ public abstract class STIR {
     PUSH = 0X1D,
     CALL = 0x1E,
     CLASS = 0x1F,
-    SFN = 0x20;
-
-
+    SFN = 0x20,
+    POS = 0x21, // +
+    NEG = 0x22, // -
+    RET = 0x23,
+    ARRAY = 0x24,
+    BRK = 0x25,
+    CTN = 0x26;
 
     public abstract byte getOpcode();
     public abstract void dump(DataOutputStream out) throws IOException;

@@ -24,17 +24,18 @@ public class ConstTable {
         putObject(init);
     }
 
-    public void putObject(ConstObject<?> object){
+    public int putObject(ConstObject<?> object){
         int index = 0;
         for(ConstObject<?> o : const_objects){
             if(o.equals(object)){
                 object.setIndex(index);
-                return;
+                return index;
             }
             index++;
         }
         const_objects.add(object);
         object.setIndex(const_objects.size() - 1);
+        return const_objects.size() - 1;
     }
 
     public void dump(DataOutputStream out) throws IOException {

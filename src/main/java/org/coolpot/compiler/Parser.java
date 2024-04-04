@@ -28,6 +28,7 @@ public class Parser {
         this.parsers.add(new SugarFuncParser(file,this));
         this.parsers.add(new WhileParser(file,this));
         this.parsers.add(new IfParser(file,this));
+        this.parsers.add(new ForParser(file,this));
     }
 
     public Token getToken(){

@@ -215,6 +215,8 @@ public class ExpressionParser implements SubParser {
                         case "||" -> nodes.add(new OpNode(OpNode.NodeType.LOR));
                         case "=" -> nodes.add(new OpNode(OpNode.NodeType.ASSIGN));
                         case "." -> nodes.add(new MemberNode());
+                        case "++" -> nodes.add(new GroupNode(new PushNode(new StamonInteger(1)),new OpNode(OpNode.NodeType.ADD)));
+                        case "--" -> nodes.add(new GroupNode(new PushNode(new StamonInteger(1)),new OpNode(OpNode.NodeType.SUB)));
                     }
                 }
                 case KEY -> {
@@ -244,7 +246,11 @@ public class ExpressionParser implements SubParser {
 
     private static boolean isUnaryOperator(Token token, boolean isU) {
         if (token.getType() != Token.Type.SEM) return false;
-        return isU && (token.getData().equals("-") || token.getData().equals("++") || token.getData().equals("--") || token.getData().equals("~"));
+        return isU && (token.getData().equals("-") ||
+                token.getData().equals("++") ||
+                token.getData().equals("--") ||
+                token.getData().equals("~")) ||
+                token.getData().equals("+");
     }
 
     public ASTNode parserFuncArg(SymbolTable table) {

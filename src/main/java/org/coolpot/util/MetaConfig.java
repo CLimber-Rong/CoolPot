@@ -42,6 +42,7 @@ public final class MetaConfig {
             add("null");
             add("extends");
             add("in");
+            add("return");
         }
     };
 
@@ -55,6 +56,7 @@ public final class MetaConfig {
     * '=' expected. - 需要 '='
     * '"' expected. - 需要 '"'
     * '(' expected. - 需要 '('
+    * 'in' expected. - 需要 'in'.
     * Cannot found import library. - 找不到指定库
     * Illegal escape character in string literal. - 字符串中存在非法转义字符
     * Illegal symbol in function define. - 函数定义中存在非法字符
