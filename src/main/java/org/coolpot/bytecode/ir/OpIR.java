@@ -1,18 +1,17 @@
-package org.coolpot.bytecode.ir.opcode;
-
-import org.coolpot.bytecode.ir.STIR;
+package org.coolpot.bytecode.ir;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class AddIR extends STIR {
+public class OpIR extends STIR{
+
     @Override
     public byte getOpcode() {
-        return STIR.ADD;
+        return 0;
     }
 
     @Override
     public void dump(DataOutputStream out) throws IOException {
-        out.writeByte(STIR.ADD);
+
     }
 }

@@ -6,11 +6,11 @@ import java.util.Set;
 public final class MetaConfig {
     private MetaConfig(){}
 
-    public static final String name = Util.dynamic("CoolPot");
-    public static final String version = Util.dynamic("v0.0.4");
+    public static final String name = "CoolPot";
+    public static final String version = "v0.0.4";
 
-    public static final String version_info = Util.dynamic(name+" (OpenJDK, Build by plants-os) "+version
-    +".\nCopyright 2024 by XIAOYI12, CLimber-Rong.");
+    public static final String version_info = name+" (OpenJDK, Build by plants-os) "+version
+    +".\nCopyright 2024 by XIAOYI12, CLimber-Rong.";
 
     public static boolean disableSFN = false;
     public static boolean disableSTD = false;
@@ -23,7 +23,7 @@ public final class MetaConfig {
             "|", "=", ">", "<", ",", "+=", "-=", "*=", "/=", "%", "%=",
             "++", "--", "&&", "||", "^", ".");
 
-    private static final Set<String> keys = new HashSet<>(){
+    private static final Set<String> keys = new HashSet<>(18){
         {
             add("import");
             add("def");
@@ -53,9 +53,9 @@ public final class MetaConfig {
     * Type name is not valid. - 无效的类型名称
     * <identifier> expected. - 需要: <标识符>
     * ',' expected. - 需要 ','
-    * '=' expected. - 需要 '='
-    * '"' expected. - 需要 '"'
-    * '(' expected. - 需要 '('
+    * '=' exxpected. - 需要 '"'
+     * '(' pected. - 需要 '='
+    * '"' eexpected. - 需要 '('
     * 'in' expected. - 需要 'in'.
     * Cannot found import library. - 找不到指定库
     * Illegal escape character in string literal. - 字符串中存在非法转义字符

@@ -77,25 +77,16 @@ public class WhileParser implements SubParser {
 
     public ASTNode parserBool(SymbolTable table) {
         List<Token> exp_row = new ArrayList<>();
-        Token t = getToken();
-        if (t.getType().equals(Token.Type.LP) && t.getData().equals("(")) {
-            int index = 0;
-            do {
-                if (t.getType().equals(Token.Type.LP) && t.getData().equals("(")) {
-                    exp_row.add(t);
-                    index += 1;
-                }
-                if (t.getType().equals(Token.Type.LR) && t.getData().equals(")") && index > 0) {
-                    index -= 1;
-                    exp_row.add(t);
-                }
-                if (t.getType().equals(Token.Type.LR) && t.getData().equals(")") && index <= 0) break;
-
-                exp_row.add(t);
-                t = getToken();
-            } while (true);
-            ExpressionParser ep = new ExpressionParser(parser, exp_row);
-            return ep.eval(table);
-        } else throw new SyntaxException(t, "'(' expected.");
+        Token t;
+        do{
+            t = getToken();
+            if(t.getType() == Token.Type.LP && t.getData().equals("{")){
+                parser.setBuffer(t);
+                break;
+            }
+            exp_row.add(t);
+        }while (true);
+        ExpressionParser ep = new ExpressionParser(parser, exp_row);
+        return ep.eval(table);
     }
 }

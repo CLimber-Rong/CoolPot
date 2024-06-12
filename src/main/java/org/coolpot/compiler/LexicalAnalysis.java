@@ -12,7 +12,7 @@ import java.util.Collection;
 
 public final class LexicalAnalysis {
     SourceFile file;
-    char[] datas;
+    String datas;
     int index;
     int line;
     Character buffer;
@@ -24,12 +24,14 @@ public final class LexicalAnalysis {
         this.line = 1;
         this.datas = Util.readFile(this.file.file);
         StringBuilder sb = new StringBuilder();
-        for (char c : datas)
+        for (int i = 0, datasLength = datas.length(); i < datasLength; i++) {
+            char c = datas.charAt(i);
             if (c == '\n') {
                 file.line_data.add(sb.toString());
                 sb = new StringBuilder();
             } else
                 sb.append(c);
+        }
     }
 
     private Character getChar() {
@@ -38,8 +40,8 @@ public final class LexicalAnalysis {
             c = buffer;
             buffer = null;
         } else {
-            if (index >= datas.length) return null;
-            c = datas[index];
+            if (index >= datas.length()) return null;
+            c = datas.charAt(index);
             index++;
         }
         return c;

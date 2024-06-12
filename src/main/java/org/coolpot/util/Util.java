@@ -23,13 +23,13 @@ public class Util {
         return Util.class.getResourceAsStream(pathx);
     }
 
-    public static char[] readFile(File file){
+    public static String readFile(File file){
         try(BufferedReader reader = Files.newBufferedReader(file.toPath())){
             StringBuilder sb = new StringBuilder();
             String buf;
             while ((buf = reader.readLine()) != null)
                 sb.append(buf).append('\n');
-            return sb.toString().toCharArray();
+            return sb.toString();
         }catch (IOException io){
             throw new CompilerException(io,"Error: Cannot read source file!");
         }

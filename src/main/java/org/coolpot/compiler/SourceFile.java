@@ -1,7 +1,5 @@
 package org.coolpot.compiler;
 
-import org.coolpot.bytecode.consts.ConstTable;
-import org.coolpot.bytecode.ir.STIR;
 import org.coolpot.compiler.node.ASTNode;
 import org.coolpot.compiler.tokens.Token;
 
